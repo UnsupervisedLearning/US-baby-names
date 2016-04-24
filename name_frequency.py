@@ -59,7 +59,6 @@ def makeNamePlot( names, gender, year=-1 ):
             nameReq = df_name['Name']==name
             df_name.loc[ nameReq, 'Count'] = df_name.loc[ nameReq, 'Count'] / maxVal
 
-
     if len(names) > 1:
         fig, ax = plt.subplots()
         labels = []
@@ -83,7 +82,14 @@ def makeNamePlot( names, gender, year=-1 ):
     if args.normalize:
         plt.ylabel('Normalized Count')
     else:
-        plt.ylabel('Count')
+        label = 'Number of US births'
+        if gender=="M":
+            label += " (male)"
+        elif gender=="F":
+            label += " (female)"            
+        elif gender=="B":
+            label += " (male or female)"            
+        plt.ylabel(label)  
     plt.xlabel('Year')
     
     plt.savefig( args.out )
