@@ -39,6 +39,18 @@ df = pd.read_sql("SELECT * from NationalNames",con)
 
 
 
+def isSlopePositive( name, year, df ):
+    # Consider years 5 before and 5 after the year in question 
+    # Return true if the average of the 5 years after is greater than
+    # the average of the 5 years before.  
+    dfShort = df.loc[df[df['Year']>=year-5][df['Year']<=year+5].index.tolist()]
+    avgBefore = dfShort[:5].Count.mean()
+    avgAfter  = dfShort[6:].Count.mean()
+    if avgAfter > avgBefore: 
+        return True
+    else:
+        return False  
+
 def makeNamePlot( names, gender, year=-1 ):
 
     print "names =", names
@@ -94,6 +106,12 @@ def makeNamePlot( names, gender, year=-1 ):
     
     plt.savefig( args.out )
     print "Saved results in file: ", args.out 
+    
+    for name in names:
+        if isSlopePositive(name, year, df_name):
+            print "The name", name, "was trending upward in year", year  
+        else:            
+            print "The name", name, "was trending downward in year", year  
 
 if args.names is not None:
     makeNamePlot( args.names, args.gender, args.year )
