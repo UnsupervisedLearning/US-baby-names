@@ -87,8 +87,7 @@ def makeNamePlot( names, gender, year=-1 ):
     plt.xlabel('Year')
     
     plt.savefig( args.out )
-
-
+    print "Saved results in file: ", args.out 
 
 if args.names is not None:
     makeNamePlot( args.names, args.gender, args.year )
