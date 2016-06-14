@@ -94,7 +94,7 @@ def makeNamePlot( names, gender, year=-1 ):
     if args.normalize:
         plt.ylabel('Normalized Count')
     else:
-        label = 'Number of US births'
+        label = 'Number of US births by name'
         if gender=="M":
             label += " (male)"
         elif gender=="F":
